@@ -31,12 +31,12 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
             </div>
 
         <div className={styles.controls} role="navigation" aria-label="Main menu">
-          <Button variant="primary" full onClick={handleStart} autoFocus aria-disabled={starting}>{starting ? t('starting') : t('start_game')}</Button>
+          <Button variant="primary" className={styles.menuButton} onClick={handleStart} autoFocus aria-disabled={starting}>{starting ? t('starting') : t('start_game')}</Button>
 
           <div className={styles.row}>
-            <Button variant="secondary" full onClick={handleSettings}>{t('menu_settings')}</Button>
-            <Button variant="secondary" full onClick={handleCredits}>{t('menu_credits')}</Button>
-            <Button variant="secondary" full onClick={handleError}>{t('menu_simulate_error')}</Button>
+            <Button variant="secondary" className={styles.menuButton} onClick={handleSettings}>{t('menu_settings')}</Button>
+            <Button variant="secondary" className={styles.menuButton} onClick={handleCredits}>{t('menu_credits')}</Button>
+            <Button variant="secondary" className={styles.menuButton} onClick={handleError}>{t('menu_simulate_error')}</Button>
           </div>
         </div>
 
