@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap');
 :root{
-  --bg:#020411;
-  --panel:rgba(255,255,255,0.02);
-  --glass:rgba(255,255,255,0.03);
+  --bg:#000000;
+  --panel:rgba(255,255,255,0.01);
+  --glass:rgba(255,255,255,0.02);
   --accent:#ffd84d; /* warm yellow */
   --accent-neon:#00f0ff;
-  --muted:rgba(255,255,255,0.65);
+  --muted:rgba(255,255,255,0.75);
 }
 
 .wrap{
@@ -75,10 +75,11 @@
 
 /* background animated gradient */
 .bg{
-  position:absolute;inset:0;z-index:0;pointer-events:none;filter:blur(26px) brightness(.95);
-  background:linear-gradient(120deg,#000814 0%, #041022 50%, #000814 100%);
-  animation:pan 18s linear infinite;
-  opacity:.7;
+  position:absolute;inset:0;z-index:0;pointer-events:none;filter:blur(18px) brightness(.95);
+  /* very dark, slight tint for depth but primarily black */
+  background:linear-gradient(120deg,#000000 0%, #030303 50%, #000000 100%);
+  animation:pan 24s linear infinite;
+  opacity:.65;
 }
 @keyframes pan{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 

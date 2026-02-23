@@ -1,0 +1,15 @@
+/* Global reset and background to remove browser margins and set black UI */
+html,body,#root{
+  height:100%;
+  margin:0;
+  padding:0;
+  background:#000000;
+  color:#fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Ensure full-bleed background so there is no visible page border */
+body{
+  background-color:#000;
+}
