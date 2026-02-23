@@ -210,3 +210,6 @@ export function t(key: string){
 export function setLocale(loc: string){ LOCALE = loc; }
 
 export default { t, setLocale };
+
+export function getLocale(){ return LOCALE; }
+export { TRANSLATIONS };
