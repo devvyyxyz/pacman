@@ -18,11 +18,11 @@ export default function ErrorPage({error, info, onBack}:{error:Error, info?:Reac
     setSending(false);
     if(res.ok){
       setResult('sent');
-      try{ toast.show({ title: 'Report sent', message: 'Thanks — the report was submitted.', type: 'success' }); }catch{}
+      try{ toast.show({ title: t('report_sent_title'), message: t('report_sent_message'), type: 'success' }); }catch{}
     }else{
       const reason = res.reason || `status ${res.status}`;
       setResult(`failed: ${reason}`);
-      try{ toast.show({ title: 'Report failed', message: `Failed to send report: ${reason}`, type: 'error', duration: 6000 }); }catch{}
+      try{ toast.show({ title: t('report_failed_title'), message: t('report_failed_message_prefix') + reason, type: 'error', duration: 6000 }); }catch{}
     }
   }
 

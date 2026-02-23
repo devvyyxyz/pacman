@@ -28,7 +28,12 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
     menu_settings: 'Settings',
     menu_credits: 'Credits',
     menu_simulate_error: 'Simulate Error',
-    menu_footer: 'Press Enter or click to start'
+    menu_footer: 'Press Enter or click to start',
+    // Reporting feedback messages
+    report_sent_title: 'Report sent',
+    report_sent_message: 'Thanks — the report was submitted.',
+    report_failed_title: 'Report failed',
+    report_failed_message_prefix: 'Failed to send report: '
   },
   es: {
     settings_title: 'AJUSTES',
@@ -59,7 +64,12 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
     menu_settings: 'Ajustes',
     menu_credits: 'Créditos',
     menu_simulate_error: 'Simular error',
-    menu_footer: 'Pulsa Enter o haz clic para comenzar'
+    menu_footer: 'Pulsa Enter o haz clic para comenzar',
+    // Reporting feedback messages
+    report_sent_title: 'Informe enviado',
+    report_sent_message: 'Gracias — el informe fue enviado.',
+    report_failed_title: 'Error al enviar informe',
+    report_failed_message_prefix: 'No se pudo enviar el informe: '
   },
   pl: {
     settings_title: 'USTAWIENIA',
@@ -90,7 +100,12 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
     menu_settings: 'Ustawienia',
     menu_credits: 'Autorki i autorzy',
     menu_simulate_error: 'Zasymuluj błąd',
-    menu_footer: 'Naciśnij Enter lub kliknij, aby rozpocząć'
+    menu_footer: 'Naciśnij Enter lub kliknij, aby rozpocząć',
+    // Reporting feedback messages
+    report_sent_title: 'Raport wysłany',
+    report_sent_message: 'Dzięki — raport został wysłany.',
+    report_failed_title: 'Wysyłanie nie powiodło się',
+    report_failed_message_prefix: 'Nie udało się wysłać raportu: '
   }
 };
 
