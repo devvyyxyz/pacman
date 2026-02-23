@@ -3,7 +3,7 @@ import ErrorPage from '../pages/Error';
 
 type State = {error: Error | null, info?: React.ErrorInfo | null};
 
-export default class ErrorBoundary extends React.Component<{}, State> {
+export default class ErrorBoundary extends React.Component<React.PropsWithChildren<{}>, State> {
   constructor(props:any){
     super(props);
     this.state = {error: null, info: null};
