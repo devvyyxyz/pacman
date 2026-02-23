@@ -1,48 +1,67 @@
 import React, { useRef, useEffect, useState } from 'react'
 
-const TILE = 24
-const COLS = 19
-const ROWS = 15
+const TILE = 28
+const COLS = 21
+const ROWS = 17
 const MOVE_INTERVAL = 120
 
-function makeMaze() {
+type Dir = { r: number; c: number }
+type Ghost = { r: number; c: number; dir: Dir; color: string }
+
+function makeMaze(): number[][] {
   const grid = Array.from({ length: ROWS }, () => Array.from({ length: COLS }, () => 0))
   for (let r = 0; r < ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
       if (r === 0 || r === ROWS - 1 || c === 0 || c === COLS - 1) grid[r][c] = 1
     }
   }
-  // Add some interior walls
-  for (let c = 2; c < COLS - 2; c++) {
-    if (c % 4 === 0) grid[4][c] = 1
-    if ((c + 2) % 5 === 0) grid[8][c] = 1
+  // Create a more unique maze: symmetric blocks and tunnels
+  for (let r = 2; r < ROWS - 2; r += 4) {
+    for (let c = 2; c < COLS - 2; c++) {
+      if ((c + r) % 3 === 0) grid[r][c] = 1
+    }
   }
-  grid[7][9] = 0 // center open
+  for (let c = 2; c < COLS - 2; c += 6) {
+    for (let r = 3; r < ROWS - 3; r++) grid[r][c] = 1
+  }
+  // horizontal central bar with a tunnel
+  const mid = Math.floor(ROWS / 2)
+  for (let c = 2; c < COLS - 2; c++) if (c !== Math.floor(COLS / 2)) grid[mid][c] = 1
+  // small rooms
+  grid[3][3] = 1; grid[3][4] = 1; grid[4][3] = 1
+  grid[3][COLS-4] = 1; grid[3][COLS-5] = 1; grid[4][COLS-4] = 1
+  // leave center open
   return grid
 }
 
-export default function Game() {
-  const canvasRef = useRef(null)
+export default function Game(){
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const [score, setScore] = useState(0)
   const [won, setWon] = useState(false)
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext('2d')
+    const canvas = canvasRef.current!
+    const ctx = canvas.getContext('2d')!
     canvas.width = COLS * TILE
     canvas.height = ROWS * TILE
 
     const maze = makeMaze()
-    const pellets = new Set()
+    const pellets = new Set<string>()
     for (let r = 0; r < ROWS; r++) {
       for (let c = 0; c < COLS; c++) {
         if (maze[r][c] === 0) pellets.add(`${r},${c}`)
       }
     }
 
-    let pac = { r: Math.floor(ROWS / 2), c: 1, dir: { r: 0, c: 1 } }
+    const pac = { r: Math.floor(ROWS / 2), c: 1, dir: { r: 0, c: 1 } as Dir }
     pellets.delete(`${pac.r},${pac.c}`)
-    setScore(1)
+    setScore(pellets.size)
+
+    const ghosts: Ghost[] = [
+      { r: 1, c: COLS - 2, dir: { r: 0, c: -1 }, color: '#ff0000' },
+      { r: ROWS - 2, c: COLS - 2, dir: { r: -1, c: 0 }, color: '#ffb8ff' },
+      { r: 1, c: Math.floor(COLS/2), dir: { r: 0, c: 1 }, color: '#00ffff' }
+    ]
 
     let lastMove = performance.now()
     let running = true
@@ -81,10 +100,18 @@ export default function Game() {
       ctx.closePath()
       ctx.fill()
 
+      // ghosts
+      for (const g of ghosts) {
+        ctx.fillStyle = g.color
+        ctx.beginPath()
+        ctx.arc(g.c * TILE + TILE / 2, g.r * TILE + TILE / 2, TILE / 2 - 4, 0, Math.PI * 2)
+        ctx.fill()
+      }
+
       // score
       ctx.fillStyle = '#fff'
       ctx.font = '16px sans-serif'
-      ctx.fillText(`Score: ${score}`, 8, 18)
+      ctx.fillText(`Pellets remaining: ${pellets.size}`, 8, 18)
 
       if (won) {
         ctx.fillStyle = 'rgba(0,0,0,0.6)'
@@ -95,10 +122,17 @@ export default function Game() {
       }
     }
 
-    function canMove(r, c) {
+    function canMove(r: number, c: number) {
       if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return false
       return maze[r][c] === 0
     }
+
+    const DIRS: Dir[] = [
+      { r: -1, c: 0 },
+      { r: 1, c: 0 },
+      { r: 0, c: -1 },
+      { r: 0, c: 1 }
+    ]
 
     function step() {
       const nr = pac.r + pac.dir.r
@@ -116,9 +150,50 @@ export default function Game() {
           running = false
         }
       }
+
+      // move ghosts
+      for (const g of ghosts) {
+        moveGhost(g)
+        // simple collision
+        if (g.r === pac.r && g.c === pac.c) {
+          running = false
+          setWon(false)
+          // show game over by filling overlay
+        }
+      }
     }
 
-    function gameLoop(now) {
+    function moveGhost(g: Ghost) {
+      // if close to pacman, bias towards pacman
+      const dist = Math.abs(g.r - pac.r) + Math.abs(g.c - pac.c)
+      let options: Dir[] = []
+      for (const d of DIRS) {
+        const nr = g.r + d.r
+        const nc = g.c + d.c
+        if (canMove(nr, nc)) options.push(d)
+      }
+      if (options.length === 0) return
+      let chosen: Dir
+      if (dist < 6) {
+        // choose option that reduces Manhattan distance when possible
+        options.sort((a, b) => {
+          const da = Math.abs((g.r + a.r) - pac.r) + Math.abs((g.c + a.c) - pac.c)
+          const db = Math.abs((g.r + b.r) - pac.r) + Math.abs((g.c + b.c) - pac.c)
+          return da - db
+        })
+        chosen = options[0]
+      } else {
+        // random but avoid immediate reverse if possible
+        const nonReverse = options.filter(o => o.r !== -g.dir.r || o.c !== -g.dir.c)
+        const pickFrom = nonReverse.length ? nonReverse : options
+        chosen = pickFrom[Math.floor(Math.random() * pickFrom.length)]
+      }
+      g.r += chosen.r
+      g.c += chosen.c
+      g.dir = chosen
+    }
+
+    function gameLoop(now: number) {
       if (!running) return draw()
       if (now - lastMove > MOVE_INTERVAL) {
         lastMove = now
@@ -128,7 +203,7 @@ export default function Game() {
       requestAnimationFrame(gameLoop)
     }
 
-    const keyHandler = (e) => {
+    const keyHandler = (e: KeyboardEvent) => {
       if (e.key === 'ArrowUp') pac.dir = { r: -1, c: 0 }
       if (e.key === 'ArrowDown') pac.dir = { r: 1, c: 0 }
       if (e.key === 'ArrowLeft') pac.dir = { r: 0, c: -1 }

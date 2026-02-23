@@ -29,6 +29,12 @@ npm run build
 
 Files of interest
 
+- [src/Game.tsx](src/Game.tsx) - main game logic (TypeScript)
+- [src/App.tsx](src/App.tsx) - simple page wrapper
+- [index.html](index.html) - Vite entry
+
+Files of interest
+
 - [src/Game.jsx](src/Game.jsx) - main game logic
 - [src/App.jsx](src/App.jsx) - simple page wrapper
 - [index.html](index.html) - Vite entry
