@@ -9,7 +9,7 @@ export default function Credits({onBack}:{onBack:()=>void}){
     <div className={menuStyles.wrap}>
       <div className={menuStyles.bg} aria-hidden />
       <div className={menuStyles.stage} role="main">
-        <div className={menuStyles.title}>
+        <div className={`${menuStyles.title} ${styles.stickyTitle}`}>
           <h1 className={menuStyles.name}>{t('credits_title')}</h1>
           <p className={menuStyles.subtitle}>{t('credits_subtitle')}</p>
         </div>

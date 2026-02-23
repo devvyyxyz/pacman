@@ -105,7 +105,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
   return (
     <div className={styles.wrap}>
       <div className={styles.stage}>
-        <h2 className={styles.title}>Settings</h2>
+        <h2 className={`${styles.title} ${styles.stickyTitle}`}>Settings</h2>
 
         <div className={styles.grid}>
           {SETTINGS.map(s => (
