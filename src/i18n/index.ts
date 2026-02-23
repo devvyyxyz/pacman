@@ -149,6 +149,19 @@ TRANSLATIONS.pl.summary_music_off = 'Wyłączona';
 TRANSLATIONS.pl.play = 'Graj';
 TRANSLATIONS.pl.back = 'Powrót';
 
+// skin names
+TRANSLATIONS.en.skin_classic = 'Classic';
+TRANSLATIONS.en.skin_neon = 'Neon';
+TRANSLATIONS.en.skin_ghost = 'Ghost';
+
+TRANSLATIONS.es.skin_classic = 'Clásico';
+TRANSLATIONS.es.skin_neon = 'Neón';
+TRANSLATIONS.es.skin_ghost = 'Fantasma';
+
+TRANSLATIONS.pl.skin_classic = 'Klasyczna';
+TRANSLATIONS.pl.skin_neon = 'Neon';
+TRANSLATIONS.pl.skin_ghost = 'Duch';
+
 TRANSLATIONS.en.game_ready = 'Ready — game will mount below';
 TRANSLATIONS.en.exit = 'Exit';
 TRANSLATIONS.es.game_ready = 'Listo — el juego se montará abajo';

@@ -38,6 +38,8 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
                 onKeyDown={(e)=>{ if(e.key==='Enter') setSkin(s.id)}}
                 className={`${styles.skin} ${skin===s.id?styles.selected:''}`}
                 style={{background:s.color}}
+                title={t(`skin_${s.id}`)}
+                aria-label={t(`skin_${s.id}`)}
               />
             ))}
           </div>
@@ -67,7 +69,7 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
         <div className={styles.right}>
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
             <div className={styles.label}>{t('summary')}</div>
-            <div className={styles.small}>{t('summary_skin')}: {skin}</div>
+            <div className={styles.small}>{t('summary_skin')}: {t(`skin_${skin}`)}</div>
             <div className={styles.small}>{t('summary_difficulty')}: {difficulty}</div>
             <div className={styles.small}>{t('summary_sound') || t('sound')}: {sound? t('summary_sound_on') : t('summary_sound_off')}</div>
             <div className={styles.small}>{t('summary_music') || t('music')}: {music? t('summary_music_on') : t('summary_music_off')}</div>

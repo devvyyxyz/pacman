@@ -20,7 +20,6 @@ export default function Settings({onBack}:{onBack:()=>void}){
   function update(key:string, value:any){
     const next = {...local, [key]: value};
     setLocal(next);
-    config.saveConfig({settings: next as any});
   }
 
   function handleApply(){
@@ -46,7 +45,10 @@ export default function Settings({onBack}:{onBack:()=>void}){
     if(s.type === 'select'){
       return (
         <select value={val || s.options?.[0]} onChange={(e)=>update(s.id,e.target.value)} disabled={disabled}>
-          {s.options?.map(o=> <option key={o} value={o}>{o}</option>)}
+          {s.options?.map(o=> {
+            const display = s.id === 'difficulty' ? t(`diff_${o}`) : s.id === 'skin' ? t(`skin_${o}`) : (t(`opt_${o}`) || o);
+            return <option key={o} value={o}>{display}</option>;
+          })}
         </select>
       );
     }
