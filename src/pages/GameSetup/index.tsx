@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styles from './GameSetup.module.css';
 import menuStyles from '../../components/Menu/Menu.module.css';
+import Button from '../../components/Button';
 import { t } from '../../i18n';
 
 export type GameOptions = {
@@ -75,8 +76,8 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
             <div className={styles.small}>{t('summary_music') || t('music')}: {music? t('summary_music_on') : t('summary_music_off')}</div>
 
             <div style={{height:12}} />
-            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.playBtn}`} onClick={()=>onPlay({skin,difficulty,sound,music})}>{t('play')}</button>
-            <button className={menuStyles.btn} style={{marginTop:8}} onClick={onBack}>{t('back')}</button>
+            <Button variant="primary" className={styles.playBtn} onClick={()=>onPlay({skin,difficulty,sound,music})}>{t('play')}</Button>
+            <Button variant="secondary" style={{marginTop:8}} onClick={onBack}>{t('back')}</Button>
           </div>
         </div>
       </div>

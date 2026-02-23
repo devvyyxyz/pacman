@@ -1,5 +1,6 @@
 import React from 'react';
 import menuStyles from '../../components/Menu/Menu.module.css';
+import Button from '../../components/Button';
 import styles from './Credits.module.css';
 import CREDITS from '../../config/credits';
 import { t } from '../../i18n';
@@ -45,7 +46,7 @@ export default function Credits({onBack}:{onBack:()=>void}){
         </div>
 
         <div style={{marginTop:18,width:'100%',display:'flex',justifyContent:'center'}}>
-          <button className={`${menuStyles.btn} ${menuStyles.secondary}`} onClick={onBack}>{t('return_menu')}</button>
+          <Button variant="secondary" onClick={onBack}>{t('return_menu')}</Button>
         </div>
 
         <div className={menuStyles.footer} style={{width:'100%',textAlign:'center'}}>{t('credits_footer')}</div>

@@ -33,9 +33,9 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
           <Button variant="primary" full onClick={handleStart} autoFocus aria-disabled={starting}>{starting ? t('starting') : t('start_game')}</Button>
 
           <div className={styles.row}>
-            <Button variant="secondary" onClick={handleSettings}>{t('menu_settings')}</Button>
-            <Button variant="secondary" onClick={handleCredits}>{t('menu_credits')}</Button>
-            <Button variant="secondary" onClick={handleError}>{t('menu_simulate_error')}</Button>
+            <Button variant="secondary" full onClick={handleSettings}>{t('menu_settings')}</Button>
+            <Button variant="secondary" full onClick={handleCredits}>{t('menu_credits')}</Button>
+            <Button variant="secondary" full onClick={handleError}>{t('menu_simulate_error')}</Button>
           </div>
         </div>
 

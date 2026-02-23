@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { sendCrashReport } from '../../utils/report';
 import { t } from '../../i18n';
 import menuStyles from '../../components/Menu/Menu.module.css';
+import Button from '../../components/Button';
 import styles from './Error.module.css';
 
 export default function ErrorPage({error, info, onBack}:{error:Error, info?:React.ErrorInfo | null, onBack?:()=>void}){
@@ -49,9 +50,9 @@ export default function ErrorPage({error, info, onBack}:{error:Error, info?:Reac
 
         <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
           <div style={{display:'flex',gap:12,alignItems:'center'}}>
-            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.actionBtn} ${styles['actionBtn'] ? 'primary' : ''}`} onClick={handleSend} disabled={sending}>{sending? t('sending') : t('send_crash')}</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn}`} onClick={handleBack}>{t('return_menu')}</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : t('copy_details')}</button>
+            <Button variant="primary" className={`${styles.actionBtn}`} onClick={handleSend} disabled={sending}>{sending? t('sending') : t('send_crash')}</Button>
+            <Button variant="secondary" className={styles.actionBtn} onClick={handleBack}>{t('return_menu')}</Button>
+            <Button variant="secondary" className={`${styles.actionBtn} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : t('copy_details')}</Button>
             {result && <div className={styles.sendStatus}>Report status: {result}</div>}
           </div>
         </div>

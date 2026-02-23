@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import menuStyles from '../../components/Menu/Menu.module.css';
+import Button from '../../components/Button';
 import styles from './Settings.module.css';
 import SETTINGS, { SettingMeta } from '../../config/settings';
 import config from '../../config';
@@ -126,9 +127,9 @@ export default function Settings({onBack}:{onBack:()=>void}){
         </div>
 
         <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center',alignItems:'center'}}>
-          <button className={menuStyles.btn} onClick={handleApply}>{t('settings_apply')}</button>
-          <button className={menuStyles.btn} onClick={handleReset}>{t('settings_reset')}</button>
-          <button className={menuStyles.btn} onClick={onBack}>{t('settings_back')}</button>
+          <Button variant="primary" onClick={handleApply}>{t('settings_apply')}</Button>
+          <Button variant="secondary" onClick={handleReset}>{t('settings_reset')}</Button>
+          <Button variant="secondary" onClick={onBack}>{t('settings_back')}</Button>
           {applied && <div style={{marginLeft:8,color:'var(--accent)',fontWeight:600}}>{t('settings_applied')}</div>}
         </div>
       </div>
