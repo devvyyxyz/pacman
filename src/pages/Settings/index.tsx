@@ -76,7 +76,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
   }
 
   function handleReset(){
-    const defaults = DEFAULT_CONFIG.settings as Record<string, any>;
+    const defaults = DEFAULT_CONFIG.settings;
     config.saveConfig({settings: defaults});
     setLocal({...defaults});
   }
