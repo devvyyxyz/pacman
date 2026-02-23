@@ -9,7 +9,6 @@ import Settings from './pages/Settings'
 export default function App(){
   return (
     <div className="app">
-      <h1>React Pacman (TypeScript)</h1>
       <Routes>
         <Route path="/" element={<Menu/>} />
         <Route path="/game" element={<Game/>} />
