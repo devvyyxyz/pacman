@@ -6,15 +6,15 @@ export default function Menu(){
 
   return (
     <div className="container" style={{marginTop:24}}>
-      <h2 className="title">React Pacman</h2>
+      <h2 className="title">Pac-Man</h2>
       <div style={{marginTop:20}}>
-        <button onClick={() => navigate('/game')}>Start Game</button>
+        <button className="menu-button" onClick={() => navigate('/game')}>Start Game</button>
       </div>
       <div style={{marginTop:12}}>
-        <button onClick={() => navigate('/settings')}>Settings</button>
+        <button className="menu-button" onClick={() => navigate('/settings')}>Settings</button>
       </div>
       <div style={{marginTop:12}}>
-        <button onClick={() => { window.close(); navigate('/') }}>Exit Game</button>
+        <button className="menu-button" onClick={() => { window.close(); navigate('/') }}>Exit Game</button>
       </div>
     </div>
   )
