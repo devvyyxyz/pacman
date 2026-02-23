@@ -4,6 +4,7 @@ import styles from './Settings.module.css';
 import SETTINGS, { SettingMeta } from '../../config/settings';
 import config from '../../config';
 import { t, setLocale } from '../../i18n';
+import Title from '../../components/Title';
 import { DEFAULT_CONFIG } from '../../config/defaults';
 
 type LocalSettings = Record<string, any>;
@@ -105,7 +106,9 @@ export default function Settings({onBack}:{onBack:()=>void}){
   return (
     <div className={styles.wrap}>
       <div className={styles.stage}>
-        <h2 className={`${styles.title} ${styles.stickyTitle}`}>Settings</h2>
+        <div className={`${menuStyles.title} ${styles.stickyTitle}`}>
+            <Title title={t('settings_title')} subtitle={t('settings_subtitle')} sticky className={`${menuStyles.title} ${styles.stickyTitle}`} />
+        </div>
 
         <div className={styles.grid}>
           {SETTINGS.map(s => (

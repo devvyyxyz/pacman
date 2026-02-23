@@ -3,16 +3,14 @@ import menuStyles from '../../components/Menu/Menu.module.css';
 import styles from './Credits.module.css';
 import CREDITS from '../../config/credits';
 import { t } from '../../i18n';
+import Title from '../../components/Title';
 
 export default function Credits({onBack}:{onBack:()=>void}){
   return (
     <div className={`${menuStyles.wrap} ${styles.pageWrap}`}>
       <div className={menuStyles.bg} aria-hidden />
       <div className={menuStyles.stage} role="main">
-        <div className={`${menuStyles.title} ${styles.stickyTitle}`}>
-          <h1 className={menuStyles.name}>{t('credits_title')}</h1>
-          <p className={menuStyles.subtitle}>{t('credits_subtitle')}</p>
-        </div>
+        <Title title={t('credits_title')} subtitle={t('credits_subtitle')} sticky className={`${menuStyles.title} ${styles.stickyTitle}`} />
 
         <div className={styles.cards}>
           {CREDITS.map(c => {

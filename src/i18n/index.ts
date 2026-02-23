@@ -94,6 +94,11 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
   }
 };
 
+// small subtitle for settings page
+TRANSLATIONS.en.settings_subtitle = 'Configure gameplay, audio and appearance';
+TRANSLATIONS.es.settings_subtitle = 'Configura jugabilidad, audio y apariencia';
+TRANSLATIONS.pl.settings_subtitle = 'Konfiguruj rozgrywkę, dźwięk i wygląd';
+
 // Additional keys for setup, gameplay, credits and language names
 TRANSLATIONS.en.setup_title = 'Prepare your run';
 TRANSLATIONS.en.choose_skin = 'Choose skin';
