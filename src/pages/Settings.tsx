@@ -38,8 +38,8 @@ export default function Settings(){
   }
 
   return (
-    <div style={{padding:16}}>
-      <h3>Settings</h3>
+    <div className="container settings">
+      <h3 className="title">Settings</h3>
       <p>Upload custom sprites (filenames should include pacman, ghost1, pellet, or wall). Uploaded images are stored in your browser localStorage.</p>
       <input type="file" onChange={handleFiles} multiple accept="image/*" />
       <div style={{marginTop:12}}>

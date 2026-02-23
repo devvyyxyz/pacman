@@ -5,8 +5,8 @@ export default function Menu(){
   const navigate = useNavigate()
 
   return (
-    <div style={{textAlign:'center', marginTop:24}}>
-      <h2>React Pacman</h2>
+    <div className="container" style={{marginTop:24}}>
+      <h2 className="title">React Pacman</h2>
       <div style={{marginTop:20}}>
         <button onClick={() => navigate('/game')}>Start Game</button>
       </div>
