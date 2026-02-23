@@ -1,0 +1,35 @@
+# React Pacman
+
+A minimal Pacman-like game built with React and Canvas. Intended for small deployments (e.g., itch.io).
+
+Quick start
+
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Run dev server
+
+```bash
+npm run dev
+```
+
+3. Build for production
+
+```bash
+npm run build
+```
+
+4. Publish to itch.io
+
+- Build an optimized bundle with `npm run build`.
+- The output will be in the `dist` folder. Zip the `dist` folder or upload its contents to an HTML project on itch.io.
+
+Files of interest
+
+- [src/Game.jsx](src/Game.jsx) - main game logic
+- [src/App.jsx](src/App.jsx) - simple page wrapper
+- [index.html](index.html) - Vite entry
+
