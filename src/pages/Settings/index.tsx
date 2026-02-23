@@ -10,6 +10,7 @@ type LocalSettings = Record<string, any>;
 
 export default function Settings({onBack}:{onBack:()=>void}){
   const [local, setLocal] = useState<LocalSettings>({});
+  const [applied, setApplied] = useState(false);
 
   useEffect(()=>{
     const cfg = config.loadConfig();
@@ -20,6 +21,13 @@ export default function Settings({onBack}:{onBack:()=>void}){
     const next = {...local, [key]: value};
     setLocal(next);
     config.saveConfig({settings: next as any});
+  }
+
+  function handleApply(){
+    config.saveConfig({settings: local as any});
+    if(local.locale) setLocale(local.locale);
+    setApplied(true);
+    setTimeout(()=>setApplied(false), 2000);
   }
 
   function renderControl(s: SettingMeta){
@@ -60,9 +68,10 @@ export default function Settings({onBack}:{onBack:()=>void}){
     }
     if(s.id === 'locale'){
       const cur = local['locale'] || 'en';
+      const NATIVE_LANG: Record<string,string> = { en: 'English', es: 'Español', pl: 'Polski' };
       return (
         <select value={cur} onChange={(e)=>{ update('locale', e.target.value); setLocale(e.target.value); }}>
-          {s.options?.map(opt => <option key={opt} value={opt}>{t(`lang_${opt}`) || opt}</option>)}
+          {s.options?.map(opt => <option key={opt} value={opt}>{NATIVE_LANG[opt] || opt}</option>)}
         </select>
       );
     }
@@ -95,9 +104,11 @@ export default function Settings({onBack}:{onBack:()=>void}){
           ))}
         </div>
 
-        <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center'}}>
+        <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center',alignItems:'center'}}>
+          <button className={menuStyles.btn} onClick={handleApply}>{t('settings_apply')}</button>
           <button className={menuStyles.btn} onClick={handleReset}>{t('settings_reset')}</button>
           <button className={menuStyles.btn} onClick={onBack}>{t('settings_back')}</button>
+          {applied && <div style={{marginLeft:8,color:'var(--accent)',fontWeight:600}}>{t('settings_applied')}</div>}
         </div>
       </div>
     </div>
