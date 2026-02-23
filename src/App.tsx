@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import Menu from './components/Menu';
 import GameSetup, { GameOptions } from './pages/GameSetup';
 import GamePlay from './pages/GamePlay';
+import ErrorPage from './pages/Error';
+import Settings from './pages/Settings';
+import Credits from './pages/Credits';
 
-type Route = 'menu' | 'setup' | 'play';
+type Route = 'menu' | 'setup' | 'play' | 'error' | 'settings' | 'credits';
 
 export default function App() {
   const [route, setRoute] = useState<Route>('menu');
@@ -21,7 +24,7 @@ export default function App() {
   return (
     <div style={{minHeight: '100vh'}}>
       {route === 'menu' && (
-        <Menu onStart={handleStart} />
+        <Menu onStart={handleStart} onOpenSettings={()=>setRoute('settings')} onOpenCredits={()=>setRoute('credits')} onError={()=>setRoute('error')} />
       )}
 
       {route === 'setup' && (
@@ -32,6 +35,18 @@ export default function App() {
         <div className="game-enter">
           <GamePlay options={options} onBack={()=>setRoute('menu')} />
         </div>
+      )}
+
+      {route === 'settings' && (
+        <Settings onBack={()=>setRoute('menu')} />
+      )}
+
+      {route === 'credits' && (
+        <Credits onBack={()=>setRoute('menu')} />
+      )}
+
+      {route === 'error' && (
+        <ErrorPage error={new Error('An error occurred')} info={undefined} />
       )}
     </div>
   );

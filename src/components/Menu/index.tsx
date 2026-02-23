@@ -2,9 +2,9 @@ import React from 'react';
 import styles from './Menu.module.css';
 import { playChomp } from '../../utils/audio';
 
-type Props = { onStart?: () => void };
+type Props = { onStart?: () => void, onOpenSettings?: ()=>void, onOpenCredits?: ()=>void, onError?: ()=>void };
 
-export default function Menu({onStart}: Props) {
+export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: Props) {
   const [starting, setStarting] = React.useState(false);
 
   function handleStart() {
@@ -13,6 +13,10 @@ export default function Menu({onStart}: Props) {
     setStarting(true);
     setTimeout(() => { if (onStart) onStart(); }, 600);
   }
+
+  function handleSettings(){ playChomp(); if(onOpenSettings) onOpenSettings(); }
+  function handleCredits(){ playChomp(); if(onOpenCredits) onOpenCredits(); }
+  function handleError(){ if(onError) onError(); }
 
   return (
     <div className={`${styles.wrap} ${starting ? styles.starting : ''}`}>
@@ -32,6 +36,12 @@ export default function Menu({onStart}: Props) {
           >
             {starting ? 'Starting…' : 'Start Game'}
           </button>
+
+          <div className={styles.row}>
+            <button className={styles.btn} onClick={handleSettings}>Settings</button>
+            <button className={styles.btn} onClick={handleCredits}>Credits</button>
+            <button className={styles.btn} onClick={handleError}>Simulate Error</button>
+          </div>
         </div>
 
         <div className={styles.footer}>Press Enter or click to start</div>
