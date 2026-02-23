@@ -38,9 +38,9 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
           </button>
 
           <div className={styles.row}>
-            <button className={styles.btn} onClick={handleSettings}>Settings</button>
-            <button className={styles.btn} onClick={handleCredits}>Credits</button>
-            <button className={styles.btn} onClick={handleError}>Simulate Error</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleSettings}>Settings</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleCredits}>Credits</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleError}>Simulate Error</button>
           </div>
         </div>
 
