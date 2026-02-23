@@ -1,26 +1,22 @@
 import React from 'react';
 import styles from './Menu.module.css';
+import { playChomp } from '../../utils/audio';
 
-type Props = {
-  onStart?: () => void;
-};
+type Props = { onStart?: () => void };
 
 export default function Menu({onStart}: Props) {
   const [starting, setStarting] = React.useState(false);
 
   function handleStart() {
     if (starting) return;
+    playChomp();
     setStarting(true);
-    // match CSS transition duration (600ms) then navigate
-    setTimeout(() => {
-      if (onStart) onStart();
-    }, 600);
+    setTimeout(() => { if (onStart) onStart(); }, 600);
   }
 
   return (
     <div className={`${styles.wrap} ${starting ? styles.starting : ''}`}>
       <div className={styles.bg} aria-hidden />
-
       <div className={styles.stage} role="main">
         <div className={styles.title}>
           <h1 className={styles.name}>PAC‑MOD</h1>
