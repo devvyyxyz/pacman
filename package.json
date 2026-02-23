@@ -1,6 +1,7 @@
 {
-  "name": "react-pacman",
+  "name": "react-game-template",
   "version": "0.1.0",
+  "description": "A minimal React + TypeScript browser game template",
   "private": true,
   "scripts": {
     "dev": "vite",

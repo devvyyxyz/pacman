@@ -26,9 +26,9 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
     <div className={`${styles.wrap} ${starting ? styles.starting : ''}`}>
       <div className={styles.bg} aria-hidden />
       <Layout stageClassName={styles.stage}>
-        <div className={styles.title}>
-          <Title title={"PAC‑MOD"} subtitle={t('menu_subtitle')} className={styles.title} />
-        </div>
+            <div className={styles.title}>
+              <Title title={"Game Template"} subtitle={t('menu_subtitle')} className={styles.title} />
+            </div>
 
         <div className={styles.controls} role="navigation" aria-label="Main menu">
           <Button variant="primary" full onClick={handleStart} autoFocus aria-disabled={starting}>{starting ? t('starting') : t('start_game')}</Button>
