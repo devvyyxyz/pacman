@@ -1,21 +1,35 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Menu from './pages/Menu'
-import Game from './Game'
-import GameOver from './pages/GameOver'
-import Win from './pages/Win'
-import Settings from './pages/Settings'
+import React, {useState} from 'react';
+import Menu from './pages/Menu';
 
-export default function App(){
+type Route = 'menu' | 'game' | 'classic' | 'credits';
+
+export default function App() {
+  const [route, setRoute] = useState<Route>('menu');
+
   return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<Menu/>} />
-        <Route path="/game" element={<Game/>} />
-        <Route path="/settings" element={<Settings/>} />
-        <Route path="/gameover" element={<GameOver/>} />
-        <Route path="/win" element={<Win/>} />
-      </Routes>
+    <div style={{minHeight: '100vh'}}>
+      {route === 'menu' && (
+        <Menu
+          onStart={() => setRoute('game')}
+          onClassic={() => setRoute('classic')}
+        />
+      )}
+
+      {route === 'game' && (
+        <div style={{padding:40}}>
+          <h2>Game (placeholder)</h2>
+          <p>Game will mount here — implement game bootstrap in your engine.</p>
+          <button className="btn" onClick={() => setRoute('menu')}>Back</button>
+        </div>
+      )}
+
+      {route === 'classic' && (
+        <div style={{padding:40}}>
+          <h2>Classic Mode (placeholder)</h2>
+          <p>Classic mode will launch here.</p>
+          <button className="btn" onClick={() => setRoute('menu')}>Back</button>
+        </div>
+      )}
     </div>
-  )
+  );
 }

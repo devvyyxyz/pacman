@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Classic Pac-Man</title>
+  <style>
+    body { background-color: black; color: #fff; font-family: sans-serif; }
+    #pacman { height: 470px; width: 382px; border-radius: 5px; margin: 20px auto; }
+    h1 { font-family: 'Permanent Marker', cursive; text-align:center; color: yellow }
+    a { text-decoration: none; color: #00f }
+    #shim { font-family: 'Permanent Marker', cursive; position: absolute; visibility: hidden }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="shim">shim for font face</div>
+  <h1>Pacman</h1>
+  <p><a href="https://github.com/daleharvey/pacman" target="_blank">Credits: daniel estera</a></p>
+  <div id="pacman"></div>
+
+  <!-- Dependencies -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+  <!-- Classic Pac-Man script (initialized to load assets from the original repo) -->
+  <script>
+  /* Paste in the classic PACMAN code and init here. For brevity we reference the remote bundle. */
+  (function() {
+    var script = document.createElement('script');
+    script.src = 'https://raw.githubusercontent.com/daleharvey/pacman/master/pacman.js';
+    script.onload = function() {
+      var el = document.getElementById('pacman');
+      if (Modernizr.canvas && Modernizr.localstorage && Modernizr.audio && (Modernizr.audio.ogg || Modernizr.audio.mp3)) {
+        setTimeout(function () { PACMAN.init(el, 'https://raw.githubusercontent.com/daleharvey/pacman/master/'); }, 0);
+      } else {
+        el.innerHTML = 'Sorry, needs a decent browser<br /><small>(firefox 3.6+, Chrome 4+, Opera 10+ and Safari 4+)</small>';
+      }
+    };
+    document.body.appendChild(script);
+  })();
+  </script>
+</body>
+</html>
