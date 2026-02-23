@@ -7,8 +7,8 @@
   --muted:rgba(255,255,255,0.75);
 }
 .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);position:relative;overflow:hidden;font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
-.stage{width:min(860px,94vw);padding:38px 32px;border-radius:16px;background:rgba(255,255,255,0.01);box-shadow:0 14px 40px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;gap:18px;position:relative;z-index:2;backdrop-filter:blur(4px);}
-.title{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.stage{width:min(860px,94vw);padding:38px 32px;border-radius:16px;background:rgba(255,255,255,0.01);box-shadow:0 14px 40px rgba(0,0,0,0.6);display:flex;flex-direction:column;align-items:center;gap:28px;position:relative;z-index:2;backdrop-filter:blur(4px);}
+.title{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
 .name{font-size:64px;line-height:1;margin:0;color:var(--accent);letter-spacing:2px;font-weight:800}
 .subtitle{margin:0;color:var(--muted);font-size:16px;opacity:0;transform:translateY(6px);animation:fadeInUp .9s 250ms both}
 @keyframes fadeInUp{to{opacity:1;transform:translateY(0)}}
@@ -24,7 +24,7 @@
 .secondary{background:var(--bg);color:var(--accent);border:3px solid var(--accent);font-weight:700;padding:12px 20px;border-radius:12px;box-shadow:0 8px 24px rgba(255,176,56,0.04);}
 .secondary:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 60px rgba(255,176,56,0.08)}
 .secondary:focus{outline:none;box-shadow:0 0 0 6px rgba(255,208,90,0.06),0 14px 40px rgba(0,0,0,0.6)}
-.footer{color:var(--muted);font-size:13px;margin-top:6px}
+.footer{color:var(--muted);font-size:13px;margin-top:12px;text-align:center;width:100%}
 .bg{position:absolute;inset:0;z-index:0;pointer-events:none;filter:blur(18px) brightness(.95);background:linear-gradient(120deg,#000000 0%, #030303 50%, #000000 100%);animation:pan 24s linear infinite;opacity:.65}
 @keyframes pan{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 /* removed maze and particles for cleaner look */
