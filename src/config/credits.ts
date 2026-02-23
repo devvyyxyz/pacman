@@ -29,7 +29,7 @@ const CREDITS: Credit[] = [
     note: 'Example note for contributor'
   },
   {
-    id: 'Example',
+    id: 'Example2',
     name: 'Example Contributor',
     role: 'Example Role',
     url: 'https://example.com',
