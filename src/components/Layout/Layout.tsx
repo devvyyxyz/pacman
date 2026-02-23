@@ -6,13 +6,14 @@ type LayoutProps = React.PropsWithChildren<{
   title?: string;
   subtitle?: string;
   sticky?: boolean;
-  className?: string;
+  className?: string; // applied to outer wrap
+  stageClassName?: string; // applied to inner stage
 }>;
 
-export default function Layout({ title, subtitle, sticky, children, className }: LayoutProps){
+export default function Layout({ title, subtitle, sticky, children, className, stageClassName }: LayoutProps){
   return (
     <div className={`${styles.wrap} ${className || ''}`.trim()}>
-      <div className={styles.stage}>
+      <div className={`${styles.stage} ${stageClassName || ''}`.trim()}>
         {title ? (
           <div className={sticky ? styles.titleRow : undefined}>
             <Title title={title} subtitle={subtitle} sticky={!!sticky} />

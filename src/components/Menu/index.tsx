@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Menu.module.css';
 import { useI18n, Layout } from '../../components';
+import Title from '../Title';
 import { playChomp } from '../../utils/audio';
 import Button from '../Button';
 
@@ -24,10 +25,9 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
   return (
     <div className={`${styles.wrap} ${starting ? styles.starting : ''}`}>
       <div className={styles.bg} aria-hidden />
-      <Layout className={styles.stage}>
+      <Layout stageClassName={styles.stage}>
         <div className={styles.title}>
-          <h1 className={styles.name}>PAC‑MOD</h1>
-          <p className={styles.subtitle}>{t('menu_subtitle')}</p>
+          <Title title={"PAC‑MOD"} subtitle={t('menu_subtitle')} className={styles.title} />
         </div>
 
         <div className={styles.controls} role="navigation" aria-label="Main menu">
