@@ -11,6 +11,7 @@ type LocalSettings = Record<string, any>;
 export default function Settings({onBack}:{onBack:()=>void}){
   const [local, setLocal] = useState<LocalSettings>({});
   const [applied, setApplied] = useState(false);
+  const [savedKey, setSavedKey] = useState<string | null>(null);
 
   useEffect(()=>{
     const cfg = config.loadConfig();
@@ -20,6 +21,14 @@ export default function Settings({onBack}:{onBack:()=>void}){
   function update(key:string, value:any){
     const next = {...local, [key]: value};
     setLocal(next);
+    // autosave for some realtime controls (audio)
+    const AUTOSAVE_KEYS = ['sound','music','volume','maxLives'];
+    if(AUTOSAVE_KEYS.includes(key)){
+      config.saveConfig({settings: next as any});
+      setSavedKey(key);
+      setTimeout(()=>{ if(savedKey===key) setSavedKey(null); }, 1500);
+    }
+
   }
 
   function handleApply(){
@@ -32,6 +41,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
   function renderControl(s: SettingMeta){
     const val = local[s.id];
     const disabled = s.implemented === false;
+    const savedIndicator = savedKey === s.id ? <div style={{marginLeft:8,color:'var(--accent)',fontSize:12,fontWeight:700}}>{t('settings_saved')}</div> : null;
     if(s.type === 'toggle'){
       return (
         <div className={styles.controls}>
@@ -39,17 +49,21 @@ export default function Settings({onBack}:{onBack:()=>void}){
             <input type="checkbox" checked={!!val} onChange={(e)=>update(s.id,e.target.checked)} disabled={disabled} />
             <span style={{opacity: disabled ? 0.6 : 1}}>{s.label}</span>
           </label>
+          {savedIndicator}
         </div>
       );
     }
     if(s.type === 'select'){
       return (
-        <select value={val || s.options?.[0]} onChange={(e)=>update(s.id,e.target.value)} disabled={disabled}>
-          {s.options?.map(o=> {
-            const display = s.id === 'difficulty' ? t(`diff_${o}`) : s.id === 'skin' ? t(`skin_${o}`) : (t(`opt_${o}`) || o);
-            return <option key={o} value={o}>{display}</option>;
-          })}
-        </select>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <select value={val || s.options?.[0]} onChange={(e)=>update(s.id,e.target.value)} disabled={disabled}>
+            {s.options?.map(o=> {
+              const display = s.id === 'difficulty' ? t(`diff_${o}`) : s.id === 'skin' ? t(`skin_${o}`) : (t(`opt_${o}`) || o);
+              return <option key={o} value={o}>{display}</option>;
+            })}
+          </select>
+          {savedIndicator}
+        </div>
       );
     }
     if(s.type === 'range'){
@@ -58,6 +72,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
         <div className={styles.controls}>
           <input type="range" min={0} max={100} step={1} value={v} onChange={(e)=>update(s.id,parseInt(e.target.value))} disabled={disabled} />
           <div style={{minWidth:48,textAlign:'right'}}>{v}%</div>
+          {savedIndicator}
         </div>
       );
     }
@@ -65,6 +80,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
       return (
         <div className={styles.controls}>
           <input type="number" value={val ?? 3} onChange={(e)=>update(s.id,parseInt(e.target.value||'0'))} disabled={disabled} />
+          {savedIndicator}
         </div>
       );
     }
