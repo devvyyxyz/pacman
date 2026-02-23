@@ -13,7 +13,7 @@ export default function App() {
       )}
 
       {route === 'game' && (
-        <div style={{padding:40}}>
+        <div className="game-enter" style={{padding:40}}>
           <h2>Game (placeholder)</h2>
           <p>Game will mount here — implement game bootstrap in your engine.</p>
           <button className="btn" onClick={() => setRoute('menu')}>Back</button>

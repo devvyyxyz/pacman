@@ -13,3 +13,7 @@ html,body,#root{
 body{
   background-color:#000;
 }
+
+/* Game enter animation for the game screen */
+.game-enter{animation:fadeInFromBlack .6s ease forwards}
+@keyframes fadeInFromBlack{0%{opacity:0;transform:scale(.995)}100%{opacity:1;transform:scale(1)}}
