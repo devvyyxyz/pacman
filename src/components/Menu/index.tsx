@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Menu.module.css';
+import { t } from '../../i18n';
 import { playChomp } from '../../utils/audio';
 
 type Props = { onStart?: () => void, onOpenSettings?: ()=>void, onOpenCredits?: ()=>void, onError?: ()=>void };
@@ -24,7 +25,7 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
       <div className={styles.stage} role="main">
         <div className={styles.title}>
           <h1 className={styles.name}>PAC‑MOD</h1>
-          <p className={styles.subtitle}>A polished indie reimagining of the classic arcade</p>
+          <p className={styles.subtitle}>{t('menu_subtitle')}</p>
         </div>
 
         <div className={styles.controls} role="navigation" aria-label="Main menu">
@@ -34,17 +35,17 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
             autoFocus
             aria-disabled={starting}
           >
-            {starting ? 'Starting…' : 'Start Game'}
+            {starting ? t('starting') : t('start_game')}
           </button>
 
           <div className={styles.row}>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleSettings}>Settings</button>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleCredits}>Credits</button>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleError}>Simulate Error</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleSettings}>{t('menu_settings')}</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleCredits}>{t('menu_credits')}</button>
+            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleError}>{t('menu_simulate_error')}</button>
           </div>
         </div>
 
-        <div className={styles.footer}>Press Enter or click to start</div>
+        <div className={styles.footer}>{t('menu_footer')}</div>
       </div>
     </div>
   );

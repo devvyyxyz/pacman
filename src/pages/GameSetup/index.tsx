@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styles from './GameSetup.module.css';
 import menuStyles from '../../components/Menu/Menu.module.css';
+import { t } from '../../i18n';
 
 export type GameOptions = {
   skin: string;
@@ -25,8 +26,8 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
     <div className={styles.wrap}>
       <div className={styles.card}>
         <div className={styles.left}>
-          <h3 className={styles.title}>Prepare your run</h3>
-          <p className={styles.label}>Choose skin</p>
+          <h3 className={styles.title}>{t('setup_title')}</h3>
+          <p className={styles.label}>{t('choose_skin')}</p>
           <div className={styles.skins}>
             {skins.map(s => (
               <div key={s.id}
@@ -45,19 +46,19 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
 
           <div className={styles.controls}>
             <div>
-              <div className={styles.label}>Difficulty</div>
+              <div className={styles.label}>{t('difficulty')}</div>
               <div className={styles.row}>
-                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='easy'} onChange={()=>setDifficulty('easy')} /> Easy</label>
-                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='normal'} onChange={()=>setDifficulty('normal')} /> Normal</label>
-                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='hard'} onChange={()=>setDifficulty('hard')} /> Hard</label>
+                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='easy'} onChange={()=>setDifficulty('easy')} /> {t('diff_easy')}</label>
+                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='normal'} onChange={()=>setDifficulty('normal')} /> {t('diff_normal')}</label>
+                <label className={styles.small}><input type="radio" name="diff" checked={difficulty==='hard'} onChange={()=>setDifficulty('hard')} /> {t('diff_hard')}</label>
               </div>
             </div>
 
             <div>
-              <div className={styles.label}>Audio</div>
+              <div className={styles.label}>{t('audio')}</div>
               <div className={styles.row}>
-                <label className={styles.small}><input type="checkbox" checked={sound} onChange={(e)=>setSound(e.target.checked)} /> Sound</label>
-                <label className={styles.small}><input type="checkbox" checked={music} onChange={(e)=>setMusic(e.target.checked)} /> Music</label>
+                <label className={styles.small}><input type="checkbox" checked={sound} onChange={(e)=>setSound(e.target.checked)} /> {t('sound')}</label>
+                <label className={styles.small}><input type="checkbox" checked={music} onChange={(e)=>setMusic(e.target.checked)} /> {t('music')}</label>
               </div>
             </div>
           </div>
@@ -65,15 +66,15 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
 
         <div className={styles.right}>
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
-            <div className={styles.label}>Summary</div>
-            <div className={styles.small}>Skin: {skin}</div>
-            <div className={styles.small}>Difficulty: {difficulty}</div>
-            <div className={styles.small}>Sound: {sound? 'On':'Off'}</div>
-            <div className={styles.small}>Music: {music? 'On':'Off'}</div>
+            <div className={styles.label}>{t('summary')}</div>
+            <div className={styles.small}>{t('summary_skin')}: {skin}</div>
+            <div className={styles.small}>{t('summary_difficulty')}: {difficulty}</div>
+            <div className={styles.small}>{t('summary_sound') || t('sound')}: {sound? t('summary_sound_on') : t('summary_sound_off')}</div>
+            <div className={styles.small}>{t('summary_music') || t('music')}: {music? t('summary_music_on') : t('summary_music_off')}</div>
 
             <div style={{height:12}} />
-            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.playBtn}`} onClick={()=>onPlay({skin,difficulty,sound,music})}>Play</button>
-            <button className={menuStyles.btn} style={{marginTop:8}} onClick={onBack}>Back</button>
+            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.playBtn}`} onClick={()=>onPlay({skin,difficulty,sound,music})}>{t('play')}</button>
+            <button className={menuStyles.btn} style={{marginTop:8}} onClick={onBack}>{t('back')}</button>
           </div>
         </div>
       </div>

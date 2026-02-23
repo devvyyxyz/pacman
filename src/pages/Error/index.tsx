@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { sendCrashReport } from '../../utils/report';
+import { t } from '../../i18n';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import styles from './Error.module.css';
 
@@ -37,25 +38,25 @@ export default function ErrorPage({error, info, onBack}:{error:Error, info?:Reac
     <div className={styles.wrap}>
       <div className={styles.stage} role="main">
         <div className={styles.icon} aria-hidden>😵</div>
-        <h2 className={styles.title}>Something went wrong</h2>
-        <div className={styles.message}>We're sorry — the game encountered an error. You can send a crash report to the developer to help debug, or return to the main menu.</div>
+        <h2 className={styles.title}>{t('error_title')}</h2>
+        <div className={styles.message}>{t('error_message')}</div>
 
         <details className={styles.details}>
-          <summary style={{cursor:'pointer',fontWeight:700}}>Show technical details</summary>
+          <summary style={{cursor:'pointer',fontWeight:700}}>{t('show_details')}</summary>
           <div style={{marginTop:8}}><strong>{error.name}:</strong> {error.message}</div>
           <pre style={{whiteSpace:'pre-wrap',marginTop:8,fontSize:12,opacity:0.95}}>{info?.componentStack}</pre>
         </details>
 
         <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
           <div style={{display:'flex',gap:12,alignItems:'center'}}>
-            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.actionBtn} ${styles['actionBtn'] ? 'primary' : ''}`} onClick={handleSend} disabled={sending}>{sending? 'Sending…' : 'Send Crash Report'}</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn}`} onClick={handleBack}>Return To Menu</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : 'Copy Details'}</button>
+            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.actionBtn} ${styles['actionBtn'] ? 'primary' : ''}`} onClick={handleSend} disabled={sending}>{sending? t('sending') : t('send_crash')}</button>
+            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn}`} onClick={handleBack}>{t('return_menu')}</button>
+            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : t('copy_details')}</button>
             {result && <div className={styles.sendStatus}>Report status: {result}</div>}
           </div>
         </div>
 
-        <div className={styles.footer}>If the issue persists, open an issue on the project repository with steps to reproduce.</div>
+        <div className={styles.footer}>{t('error_footer')}</div>
       </div>
     </div>
   );

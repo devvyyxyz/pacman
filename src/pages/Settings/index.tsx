@@ -62,7 +62,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
       const cur = local['locale'] || 'en';
       return (
         <select value={cur} onChange={(e)=>{ update('locale', e.target.value); setLocale(e.target.value); }}>
-          {s.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+          {s.options?.map(opt => <option key={opt} value={opt}>{t(`lang_${opt}`) || opt}</option>)}
         </select>
       );
     }

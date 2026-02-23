@@ -13,9 +13,20 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
     setting_skin: 'Skin',
     setting_volume: 'Master Volume',
     setting_maxLives: 'Max Lives',
-    setting_language: 'Language'
-  }
-  ,
+    setting_language: 'Language',
+    error_title: 'Something went wrong',
+    error_message: "We're sorry — the game encountered an error. You can send a crash report to the developer to help debug, or return to the main menu.",
+    show_details: 'Show technical details',
+    sending: 'Sending…',
+    error_footer: 'If the issue persists, open an issue on the project repository with steps to reproduce.',
+    menu_subtitle: 'A polished indie reimagining of the classic arcade',
+    start_game: 'Start Game',
+    starting: 'Starting…',
+    menu_settings: 'Settings',
+    menu_credits: 'Credits',
+    menu_simulate_error: 'Simulate Error',
+    menu_footer: 'Press Enter or click to start'
+  },
   es: {
     settings_title: 'AJUSTES',
     settings_back: 'Volver',
@@ -30,9 +41,138 @@ const TRANSLATIONS: Record<string, Record<string,string>> = {
     setting_skin: 'Apariencia',
     setting_volume: 'Volumen maestro',
     setting_maxLives: 'Vidas máximas',
-    setting_language: 'Idioma'
+    setting_language: 'Idioma',
+    error_title: 'Algo salió mal',
+    error_message: 'Lo sentimos — el juego encontró un error. Puedes enviar un informe de fallos al desarrollador para ayudar a depurar, o volver al menú principal.',
+    show_details: 'Mostrar detalles técnicos',
+    sending: 'Enviando…',
+    error_footer: 'Si el problema persiste, abre un issue en el repositorio del proyecto con pasos para reproducirlo.',
+    menu_subtitle: 'Una reelaboración indie pulida del arcade clásico',
+    start_game: 'Iniciar juego',
+    starting: 'Iniciando…',
+    menu_settings: 'Ajustes',
+    menu_credits: 'Créditos',
+    menu_simulate_error: 'Simular error',
+    menu_footer: 'Pulsa Enter o haz clic para comenzar'
+  },
+  pl: {
+    settings_title: 'USTAWIENIA',
+    settings_back: 'Powrót',
+    settings_reset: 'Przywróć domyślne',
+    send_crash: 'Wyślij raport awarii',
+    return_menu: 'Powrót do menu',
+    copy_details: 'Kopiuj szczegóły',
+    coming_soon: 'Wkrótce',
+    setting_sound: 'Efekty dźwiękowe',
+    setting_music: 'Muzyka',
+    setting_difficulty: 'Trudność',
+    setting_skin: 'Skórka',
+    setting_volume: 'Głośność',
+    setting_maxLives: 'Maksymalna liczba żyć',
+    setting_language: 'Język',
+    error_title: 'Coś poszło nie tak',
+    error_message: 'Przepraszamy — gra napotkała błąd. Możesz wysłać raport awarii do dewelopera, aby pomóc w debugowaniu, lub wrócić do menu głównego.',
+    show_details: 'Pokaż szczegóły techniczne',
+    sending: 'Wysyłanie…',
+    error_footer: 'Jeśli problem będzie się powtarzał, otwórz zgłoszenie w repozytorium projektu z instrukcjami reprodukcji.',
+    menu_subtitle: 'Dopracowana, niezależna reinterpretacja klasycznego automatu',
+    start_game: 'Rozpocznij grę',
+    starting: 'Uruchamianie…',
+    menu_settings: 'Ustawienia',
+    menu_credits: 'Autorki i autorzy',
+    menu_simulate_error: 'Zasymuluj błąd',
+    menu_footer: 'Naciśnij Enter lub kliknij, aby rozpocząć'
   }
 };
+
+// Additional keys for setup, gameplay, credits and language names
+TRANSLATIONS.en.setup_title = 'Prepare your run';
+TRANSLATIONS.en.choose_skin = 'Choose skin';
+TRANSLATIONS.en.difficulty = 'Difficulty';
+TRANSLATIONS.en.diff_easy = 'Easy';
+TRANSLATIONS.en.diff_normal = 'Normal';
+TRANSLATIONS.en.diff_hard = 'Hard';
+TRANSLATIONS.en.audio = 'Audio';
+TRANSLATIONS.en.sound = 'Sound';
+TRANSLATIONS.en.music = 'Music';
+TRANSLATIONS.en.summary = 'Summary';
+TRANSLATIONS.en.summary_skin = 'Skin';
+TRANSLATIONS.en.summary_difficulty = 'Difficulty';
+TRANSLATIONS.en.summary_sound_on = 'On';
+TRANSLATIONS.en.summary_sound_off = 'Off';
+TRANSLATIONS.en.summary_music_on = 'On';
+TRANSLATIONS.en.summary_music_off = 'Off';
+TRANSLATIONS.en.play = 'Play';
+TRANSLATIONS.en.back = 'Back';
+
+TRANSLATIONS.es.setup_title = 'Prepara tu partida';
+TRANSLATIONS.es.choose_skin = 'Elige aspecto';
+TRANSLATIONS.es.difficulty = 'Dificultad';
+TRANSLATIONS.es.diff_easy = 'Fácil';
+TRANSLATIONS.es.diff_normal = 'Normal';
+TRANSLATIONS.es.diff_hard = 'Difícil';
+TRANSLATIONS.es.audio = 'Audio';
+TRANSLATIONS.es.sound = 'Sonido';
+TRANSLATIONS.es.music = 'Música';
+TRANSLATIONS.es.summary = 'Resumen';
+TRANSLATIONS.es.summary_skin = 'Aspecto';
+TRANSLATIONS.es.summary_difficulty = 'Dificultad';
+TRANSLATIONS.es.summary_sound_on = 'Activado';
+TRANSLATIONS.es.summary_sound_off = 'Desactivado';
+TRANSLATIONS.es.summary_music_on = 'Activada';
+TRANSLATIONS.es.summary_music_off = 'Desactivada';
+TRANSLATIONS.es.play = 'Jugar';
+TRANSLATIONS.es.back = 'Volver';
+
+TRANSLATIONS.pl.setup_title = 'Przygotuj rozgrywkę';
+TRANSLATIONS.pl.choose_skin = 'Wybierz skórkę';
+TRANSLATIONS.pl.difficulty = 'Trudność';
+TRANSLATIONS.pl.diff_easy = 'Łatwy';
+TRANSLATIONS.pl.diff_normal = 'Normalny';
+TRANSLATIONS.pl.diff_hard = 'Trudny';
+TRANSLATIONS.pl.audio = 'Audio';
+TRANSLATIONS.pl.sound = 'Dźwięk';
+TRANSLATIONS.pl.music = 'Muzyka';
+TRANSLATIONS.pl.summary = 'Podsumowanie';
+TRANSLATIONS.pl.summary_skin = 'Skórka';
+TRANSLATIONS.pl.summary_difficulty = 'Trudność';
+TRANSLATIONS.pl.summary_sound_on = 'Włączone';
+TRANSLATIONS.pl.summary_sound_off = 'Wyłączone';
+TRANSLATIONS.pl.summary_music_on = 'Włączona';
+TRANSLATIONS.pl.summary_music_off = 'Wyłączona';
+TRANSLATIONS.pl.play = 'Graj';
+TRANSLATIONS.pl.back = 'Powrót';
+
+TRANSLATIONS.en.game_ready = 'Ready — game will mount below';
+TRANSLATIONS.en.exit = 'Exit';
+TRANSLATIONS.es.game_ready = 'Listo — el juego se montará abajo';
+TRANSLATIONS.es.exit = 'Salir';
+TRANSLATIONS.pl.game_ready = 'Gotowe — gra zostanie uruchomiona poniżej';
+TRANSLATIONS.pl.exit = 'Wyjdź';
+
+TRANSLATIONS.en.credits_title = 'Credits';
+TRANSLATIONS.en.credits_subtitle = 'Thanks and acknowledgements';
+TRANSLATIONS.en.visit = 'Visit →';
+TRANSLATIONS.en.credits_footer = 'Thanks for playing — report bugs via the project repository.';
+TRANSLATIONS.es.credits_title = 'Créditos';
+TRANSLATIONS.es.credits_subtitle = 'Agradecimientos';
+TRANSLATIONS.es.visit = 'Visitar →';
+TRANSLATIONS.es.credits_footer = 'Gracias por jugar — reporta errores vía el repositorio del proyecto.';
+TRANSLATIONS.pl.credits_title = 'Autorzy';
+TRANSLATIONS.pl.credits_subtitle = 'Podziękowania i uznania';
+TRANSLATIONS.pl.visit = 'Odwiedź →';
+TRANSLATIONS.pl.credits_footer = 'Dzięki za granie — zgłaszaj błędy przez repozytorium projektu.';
+
+TRANSLATIONS.en.lang_en = 'English';
+TRANSLATIONS.en.lang_es = 'Español';
+TRANSLATIONS.en.lang_pl = 'Polski';
+TRANSLATIONS.es.lang_en = 'Inglés';
+TRANSLATIONS.es.lang_es = 'Español';
+TRANSLATIONS.es.lang_pl = 'Polaco';
+TRANSLATIONS.pl.lang_en = 'Angielski';
+TRANSLATIONS.pl.lang_es = 'Hiszpański';
+TRANSLATIONS.pl.lang_pl = 'Polski';
+
 
 let LOCALE = 'en';
 

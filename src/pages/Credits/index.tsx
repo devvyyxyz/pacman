@@ -2,6 +2,7 @@ import React from 'react';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import styles from './Credits.module.css';
 import CREDITS from '../../config/credits';
+import { t } from '../../i18n';
 
 export default function Credits({onBack}:{onBack:()=>void}){
   return (
@@ -9,8 +10,8 @@ export default function Credits({onBack}:{onBack:()=>void}){
       <div className={menuStyles.bg} aria-hidden />
       <div className={menuStyles.stage} role="main">
         <div className={menuStyles.title}>
-          <h1 className={menuStyles.name}>Credits</h1>
-          <p className={menuStyles.subtitle}>Thanks and acknowledgements</p>
+          <h1 className={menuStyles.name}>{t('credits_title')}</h1>
+          <p className={menuStyles.subtitle}>{t('credits_subtitle')}</p>
         </div>
 
         <div className={styles.cards}>
@@ -29,7 +30,7 @@ export default function Credits({onBack}:{onBack:()=>void}){
                   </div>
                   {c.note && <div className={styles.cardNote}>{c.note}</div>}
                 </div>
-                {c.url && <div className={styles.cardFooter}><div className={styles.cardLink}>Visit →</div></div>}
+                {c.url && <div className={styles.cardFooter}><div className={styles.cardLink}>{t('visit')}</div></div>}
               </div>
             );
 
@@ -46,10 +47,10 @@ export default function Credits({onBack}:{onBack:()=>void}){
         </div>
 
         <div style={{marginTop:18,width:'100%',display:'flex',justifyContent:'center'}}>
-          <button className={`${menuStyles.btn} ${menuStyles.secondary}`} onClick={onBack}>Return to Menu</button>
+          <button className={`${menuStyles.btn} ${menuStyles.secondary}`} onClick={onBack}>{t('return_menu')}</button>
         </div>
 
-        <div className={menuStyles.footer} style={{width:'100%',textAlign:'center'}}>Thanks for playing — report bugs via the project repository.</div>
+        <div className={menuStyles.footer} style={{width:'100%',textAlign:'center'}}>{t('credits_footer')}</div>
       </div>
     </div>
   );
