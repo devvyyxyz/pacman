@@ -3,7 +3,7 @@ import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
 import styles from './Credits.module.css';
 import CREDITS from '../../config/credits';
-import { useI18n } from '../../components';
+import { useI18n, Grid } from '../../components';
 import Title from '../../components/Title';
 
 export default function Credits({onBack}:{onBack:()=>void}){
@@ -14,10 +14,10 @@ export default function Credits({onBack}:{onBack:()=>void}){
       <div className={menuStyles.stage} role="main">
         <Title title={t('credits_title')} subtitle={t('credits_subtitle')} sticky className={`${menuStyles.title} ${styles.stickyTitle}`} />
 
-        <div className={styles.cards}>
+        <Grid className={styles.cards} columns={{sm:1,md:2,lg:3}} gap={16}>
           {CREDITS.map(c => {
             const CardInner = (
-              <div className={styles.card} key={c.id}>
+              <div className={styles.card}>
                 <div>
                   <div className={styles.cardHeader}>
                     <div className={styles.cardIcon} aria-hidden>
@@ -44,7 +44,7 @@ export default function Credits({onBack}:{onBack:()=>void}){
 
             return <div key={c.id}>{CardInner}</div>;
           })}
-        </div>
+        </Grid>
 
         <div style={{marginTop:18,width:'100%',display:'flex',justifyContent:'center'}}>
           <Button variant="secondary" onClick={onBack}>{t('return_menu')}</Button>

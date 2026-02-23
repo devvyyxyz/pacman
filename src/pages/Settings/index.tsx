@@ -4,9 +4,8 @@ import Button from '../../components/Button';
 import styles from './Settings.module.css';
 import SETTINGS, { SettingMeta } from '../../config/settings';
 import config from '../../config';
-import { useI18n } from '../../components';
+import { useI18n, Layout, Grid } from '../../components';
 import { Toggle, Select, Range, NumberInput } from '../../components/Controls';
-import Title from '../../components/Title';
 import Card from '../../components/Card/Card';
 import { DEFAULT_CONFIG } from '../../config/defaults';
 
@@ -83,31 +82,30 @@ export default function Settings({onBack}:{onBack:()=>void}){
   }
 
   return (
-    <div className={styles.wrap}>
-      <div className={styles.stage}>
-        <div className={`${menuStyles.title} ${styles.stickyTitle}`}>
-            <Title title={t('settings_title')} subtitle={t('settings_subtitle')} sticky className={`${menuStyles.title} ${styles.stickyTitle}`} />
-        </div>
+    <Layout title={t('settings_title')} subtitle={t('settings_subtitle')} sticky>
+      <div className={styles.wrap}>
+        <div className={styles.stage}>
 
-        <div className={styles.grid}>
-          {SETTINGS.map(s => (
-            <Card key={s.id} title={t(s.labelKey || s.label || s.id)} className={`${s.implemented===false?styles.disabled:''} ${s.id==='difficulty' || s.id==='skin'?styles.full:''}`}>
-              <div className={styles.cardDesc}>{s.description}</div>
-              <div>
-                {renderControl(s)}
-              </div>
-              {s.implemented === false ? <div style={{marginTop:8}}><small style={{color:'var(--muted)'}}>{t('coming_soon')}</small></div> : null}
-            </Card>
-          ))}
-        </div>
+          <Grid columns={{sm:1,md:2,lg:3}} gap={12} className={styles.grid}>
+            {SETTINGS.map(s => (
+              <Card key={s.id} title={t(s.labelKey || s.label || s.id)} className={`${s.implemented===false?styles.disabled:''} ${s.id==='difficulty' || s.id==='skin'?styles.full:''}`}>
+                <div className={styles.cardDesc}>{s.description}</div>
+                <div>
+                  {renderControl(s)}
+                </div>
+                {s.implemented === false ? <div style={{marginTop:8}}><small style={{color:'var(--muted)'}}>{t('coming_soon')}</small></div> : null}
+              </Card>
+            ))}
+          </Grid>
 
-        <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center',alignItems:'center'}}>
-          <Button variant="primary" onClick={handleApply}>{t('settings_apply')}</Button>
-          <Button variant="secondary" onClick={handleReset}>{t('settings_reset')}</Button>
-          <Button variant="secondary" onClick={onBack}>{t('settings_back')}</Button>
-          {applied && <div style={{marginLeft:8,color:'var(--accent)',fontWeight:600}}>{t('settings_applied')}</div>}
+          <div style={{marginTop:16,display:'flex',gap:8,justifyContent:'center',alignItems:'center'}}>
+            <Button variant="primary" onClick={handleApply}>{t('settings_apply')}</Button>
+            <Button variant="secondary" onClick={handleReset}>{t('settings_reset')}</Button>
+            <Button variant="secondary" onClick={onBack}>{t('settings_back')}</Button>
+            {applied && <div style={{marginLeft:8,color:'var(--accent)',fontWeight:600}}>{t('settings_applied')}</div>}
+          </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

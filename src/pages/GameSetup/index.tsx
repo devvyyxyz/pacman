@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './GameSetup.module.css';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
-import { useI18n } from '../../components';
+import { useI18n, Layout, Grid } from '../../components';
 
 export type GameOptions = {
   skin: string;
@@ -25,9 +25,11 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
   const [music,setMusic] = useState(true);
 
   return (
-    <div className={styles.wrap}>
-      <div className={styles.card}>
-        <div className={styles.left}>
+    <Layout title={t('setup_title')}>
+      <div className={styles.wrap}>
+        <div className={styles.card}>
+          <Grid columns={{sm:1,md:2}} gap={16}>
+            <div className={styles.left}>
           <h3 className={styles.title}>{t('setup_title')}</h3>
           <p className={styles.label}>{t('choose_skin')}</p>
           <div className={styles.skins}>
@@ -68,7 +70,7 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
           </div>
         </div>
 
-        <div className={styles.right}>
+          <div className={styles.right}>
           <div style={{display:'flex',flexDirection:'column',gap:8}}>
             <div className={styles.label}>{t('summary')}</div>
             <div className={styles.small}>{t('summary_skin')}: {t(`skin_${skin}`)}</div>
@@ -80,8 +82,10 @@ export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>v
             <Button variant="primary" className={styles.playBtn} onClick={()=>onPlay({skin,difficulty,sound,music})}>{t('play')}</Button>
             <Button variant="secondary" style={{marginTop:8}} onClick={onBack}>{t('back')}</Button>
           </div>
+            </div>
+          </Grid>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 }

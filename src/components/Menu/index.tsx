@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Menu.module.css';
-import { useI18n } from '../../components';
+import { useI18n, Layout } from '../../components';
 import { playChomp } from '../../utils/audio';
 import Button from '../Button';
 
@@ -24,7 +24,7 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
   return (
     <div className={`${styles.wrap} ${starting ? styles.starting : ''}`}>
       <div className={styles.bg} aria-hidden />
-      <div className={styles.stage} role="main">
+      <Layout className={styles.stage}>
         <div className={styles.title}>
           <h1 className={styles.name}>PAC‑MOD</h1>
           <p className={styles.subtitle}>{t('menu_subtitle')}</p>
@@ -41,7 +41,7 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
         </div>
 
         <div className={styles.footer}>{t('menu_footer')}</div>
-      </div>
+      </Layout>
     </div>
   );
 }
