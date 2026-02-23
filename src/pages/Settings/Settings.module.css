@@ -9,6 +9,11 @@
 .cardDesc{font-size:13px;color:rgba(255,255,255,0.65)}
 .disabled{opacity:0.45;filter:grayscale(.1);pointer-events:none}
 .controls{display:flex;gap:8px;align-items:center}
+.controls .input, .controls select, .controls input[type="number"]{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 10px;border-radius:8px;color:inherit}
+.controls input[type="range"]{width:160px;appearance:none;height:6px;border-radius:6px;background:linear-gradient(90deg,#ffd84d 0%, #ffd84d 50%, rgba(255,255,255,0.08) 50%);outline:none}
+.controls input[type="range"]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--accent);box-shadow:0 6px 18px rgba(255,176,56,0.18);border:2px solid rgba(0,0,0,0.25)}
+.controls input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:2px solid rgba(0,0,0,0.25)}
+.controls input[type="checkbox"]{width:18px;height:18px}
 .full{grid-column:1/-1}
 
 @media (max-width:800px){
