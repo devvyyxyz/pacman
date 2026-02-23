@@ -23,7 +23,7 @@ function renderErrorPage(err: Error){
   try{
     root.render(
       <React.StrictMode>
-        <ErrorPage error={err} info={undefined} />
+        <ErrorPage error={err} info={undefined} onBack={renderApp} />
       </React.StrictMode>
     );
   }catch(e){

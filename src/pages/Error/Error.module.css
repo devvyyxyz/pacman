@@ -13,6 +13,9 @@
 .smallNote{font-size:13px;color:var(--muted);text-align:center}
 .sendStatus{margin-left:8px;font-size:13px;color:var(--muted)}
 
+.copyBtn{padding:8px 10px;font-size:13px;border-radius:10px}
+
+
 @media (max-width:560px){
   .stage{padding:18px}
   .icon{width:72px;height:72px;font-size:32px}
