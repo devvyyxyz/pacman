@@ -48,9 +48,9 @@ export default function ErrorPage({error, info, onBack}:{error:Error, info?:Reac
 
         <div style={{width:'100%',display:'flex',justifyContent:'center'}}>
           <div style={{display:'flex',gap:12,alignItems:'center'}}>
-            <button className={`${menuStyles.btn} ${menuStyles.primary}`} onClick={handleSend} disabled={sending}>{sending? 'Sending…' : 'Send Crash Report'}</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary}`} onClick={handleBack}>Return To Menu</button>
-            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : 'Copy Details'}</button>
+            <button className={`${menuStyles.btn} ${menuStyles.primary} ${styles.actionBtn} ${styles['actionBtn'] ? 'primary' : ''}`} onClick={handleSend} disabled={sending}>{sending? 'Sending…' : 'Send Crash Report'}</button>
+            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn}`} onClick={handleBack}>Return To Menu</button>
+            <button className={`${menuStyles.btn} ${menuStyles.secondary} ${styles.actionBtn} ${styles.copyBtn}`} onClick={handleCopy}>{copied? copied : 'Copy Details'}</button>
             {result && <div className={styles.sendStatus}>Report status: {result}</div>}
           </div>
         </div>
