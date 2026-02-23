@@ -3,10 +3,11 @@ import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
 import styles from './Credits.module.css';
 import CREDITS from '../../config/credits';
-import { t } from '../../i18n';
+import { useI18n } from '../../components';
 import Title from '../../components/Title';
 
 export default function Credits({onBack}:{onBack:()=>void}){
+  const { t } = useI18n();
   return (
     <div className={`${menuStyles.wrap} ${styles.pageWrap}`}>
       <div className={menuStyles.bg} aria-hidden />

@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import styles from './Settings.module.css';
 import SETTINGS, { SettingMeta } from '../../config/settings';
 import config from '../../config';
-import { t, setLocale } from '../../i18n';
+import { useI18n } from '../../components';
 import { Toggle, Select, Range, NumberInput } from '../../components/Controls';
 import Title from '../../components/Title';
 import Card from '../../components/Card/Card';
@@ -16,6 +16,7 @@ export default function Settings({onBack}:{onBack:()=>void}){
   const [local, setLocal] = useState<LocalSettings>({});
   const [applied, setApplied] = useState(false);
   const [savedKey, setSavedKey] = useState<string | null>(null);
+  const { t, setLocale } = useI18n();
 
   useEffect(()=>{
     const cfg = config.loadConfig();

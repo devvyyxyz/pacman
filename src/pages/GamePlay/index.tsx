@@ -1,10 +1,11 @@
 import React from 'react';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import { GameOptions } from '../GameSetup';
-import { t } from '../../i18n';
+import { useI18n } from '../../components';
 import Button from '../../components/Button';
 
 export default function GamePlay({options, onBack}:{options:GameOptions; onBack:()=>void}){
+  const { t } = useI18n();
   return (
     <div style={{height:'100vh',display:'flex',flexDirection:'column'}}>
       <div style={{padding:16,display:'flex',justifyContent:'space-between',alignItems:'center'}}>

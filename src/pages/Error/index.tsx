@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import { sendCrashReport } from '../../utils/report';
-import { t } from '../../i18n';
+import { useI18n } from '../../components';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
 import styles from './Error.module.css';
 
 export default function ErrorPage({error, info, onBack}:{error:Error, info?:React.ErrorInfo | null, onBack?:()=>void}){
+  const { t } = useI18n();
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);

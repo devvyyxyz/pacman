@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Menu.module.css';
-import { t } from '../../i18n';
+import { useI18n } from '../../components';
 import { playChomp } from '../../utils/audio';
 import Button from '../Button';
 
@@ -8,6 +8,7 @@ type Props = { onStart?: () => void, onOpenSettings?: ()=>void, onOpenCredits?: 
 
 export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: Props) {
   const [starting, setStarting] = React.useState(false);
+  const { t } = useI18n();
 
   function handleStart() {
     if (starting) return;

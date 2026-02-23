@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './GameSetup.module.css';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
-import { t } from '../../i18n';
+import { useI18n } from '../../components';
 
 export type GameOptions = {
   skin: string;
@@ -12,6 +12,7 @@ export type GameOptions = {
 }
 
 export default function GameSetup({onPlay, onBack}:{onPlay:(opts:GameOptions)=>void; onBack:()=>void}){
+  const { t } = useI18n();
   const skins = [
     {id:'classic', color:'#ffd84d'},
     {id:'neon', color:'#00f0ff'},
