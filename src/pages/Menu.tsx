@@ -73,8 +73,8 @@ export default function Menu({onStart, onClassic}: Props) {
 
       {/* Maze outline SVG */}
       <svg className={styles.maze} viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" aria-hidden>
-        <rect x="20" y="20" width="760" height="410" rx="12" ry="12" strokeWidth="1" stroke="currentColor" fill="none" />
-        <g strokeWidth="1" stroke="currentColor">
+        <rect x="20" y="20" width="760" height="410" rx="12" ry="12" strokeWidth="0" stroke="none" fill="none" />
+        <g stroke="#ffd84d" opacity="0.04" strokeWidth="1">
           <path d="M120 80h560M120 120h220M460 120h220M120 160h560M120 200h160M320 200h480M120 240h560M120 280h220M460 280h220M120 320h560" />
         </g>
       </svg>
