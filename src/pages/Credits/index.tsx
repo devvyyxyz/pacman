@@ -6,7 +6,7 @@ import { t } from '../../i18n';
 
 export default function Credits({onBack}:{onBack:()=>void}){
   return (
-    <div className={menuStyles.wrap}>
+    <div className={`${menuStyles.wrap} ${styles.pageWrap}`}>
       <div className={menuStyles.bg} aria-hidden />
       <div className={menuStyles.stage} role="main">
         <div className={`${menuStyles.title} ${styles.stickyTitle}`}>
