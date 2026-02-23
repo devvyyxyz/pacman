@@ -1,7 +1,9 @@
 export const ASSETS = {
-  coin: '/assets/coin',
-  ghost: '/assets/ghost',
-  sprites: '/assets/sprites'
+  icons: '/assets/icons',
+  sprites: '/assets/sprites',
+  images: '/assets/images',
+  audioSfx: '/assets/audio/sfx',
+  audioMusic: '/assets/audio/music'
 };
 
 export type AssetMap = typeof ASSETS;

@@ -2,8 +2,11 @@ export type Difficulty = 'easy' | 'normal' | 'hard';
 
 export const DEFAULT_CONFIG = {
   assets: {
-    coinPath: '/assets/coin',
-    ghostPath: '/assets/ghost'
+    iconsPath: '/assets/icons',
+    spritesPath: '/assets/sprites',
+    imagesPath: '/assets/images',
+    audioSfxPath: '/assets/audio/sfx',
+    audioMusicPath: '/assets/audio/music'
   },
   settings: {
     sound: true,
