@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import App from './App';
 import ErrorBoundary from './components/ErrorBoundary';
 import ErrorPage from './pages/Error';
+import { I18nProvider, ToastProvider } from './components';
 import './styles';
 
 const container = document.getElementById('root');
@@ -12,9 +13,13 @@ const root = createRoot(container);
 function renderApp(){
   root.render(
     <React.StrictMode>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+      <I18nProvider>
+        <ToastProvider>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </ToastProvider>
+      </I18nProvider>
     </React.StrictMode>
   );
 }
@@ -23,7 +28,11 @@ function renderErrorPage(err: Error){
   try{
     root.render(
       <React.StrictMode>
-        <ErrorPage error={err} info={undefined} onBack={renderApp} />
+        <I18nProvider>
+          <ToastProvider>
+            <ErrorPage error={err} info={undefined} onBack={renderApp} />
+          </ToastProvider>
+        </I18nProvider>
       </React.StrictMode>
     );
   }catch(e){
