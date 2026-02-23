@@ -18,8 +18,41 @@ button {
 	box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, 0px 10px #00000038, 5px 5px #00000038, -5px 5px #00000038, inset 0px 5px #ffffff36;
 	cursor: pointer;
 	image-rendering: pixelated;
+	transition: transform 120ms steps(1, end), box-shadow 120ms linear, filter 120ms linear;
+	will-change: transform, box-shadow;
 }
-button:active { transform: translateY(5px); box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black, inset 0px 5px #00000038; }
+
+/* Hover lifts the button with a pixelated/stepped motion */
+button:hover {
+	transform: translateY(-6px);
+	box-shadow: 0px 10px black, 0px -4px black, 6px 0px black, -6px 0px black, 0px 12px #00000050, 6px 6px #00000050, -6px 6px #00000050, inset 0px 4px #ffffff36;
+	filter: saturate(1.05);
+}
+
+button:active {
+	transform: translateY(3px) scale(0.98);
+	box-shadow: 0px 3px black, 0px -3px black, 3px 0px black, -3px 0px black, inset 0px 6px #00000050;
+}
+
+button:focus {
+	outline: 3px solid #fff1;
+}
+
+/* small animated sparkle to make pixel buttons feel alive */
+@keyframes pixelFlicker {
+	0% { filter: brightness(1); }
+	50% { filter: brightness(1.06); }
+	100% { filter: brightness(1); }
+}
+
+.menu-button { /* keep uniform size and subtle loop */
+	min-width: 220px;
+	display: inline-block;
+	text-align: center;
+	padding-top: 12px;
+	padding-bottom: 12px;
+	animation: pixelFlicker 2200ms linear infinite;
+}
 
 /* color variants */
 .btn-red { background-color: #d83434 }
