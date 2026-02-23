@@ -4,12 +4,21 @@
  * Configure the webhook via `VITE_DISCORD_WEBHOOK_URL` or `saveConfig({discordWebhook: '...'})`.
  */
 import config from '../config';
+import reporting from '../api/reporting';
 
 export async function sendCrashReport(payload: {title?:string;message:string;stack?:string}){
+  // Try server-side reporting endpoint first (if available)
+  try{
+    const serverRes = await reporting.sendReport({ title: payload.title, message: payload.message, stack: payload.stack });
+    if(serverRes && serverRes.ok) return { ok: true, status: serverRes.status };
+    // If server reports not ok, fall through to webhook fallback
+  }catch(e){ /* continue to webhook fallback */ }
+
+  // Fallback: direct Discord webhook (client-side). May be blocked by CORS in production.
   const DISCORD_WEBHOOK_URL = config.getDiscordWebhook();
   if(!DISCORD_WEBHOOK_URL) {
-    console.warn('Discord webhook URL not configured.');
-    return {ok:false,reason:'webhook-not-configured'};
+    console.warn('Discord webhook URL not configured and server reporting failed.');
+    return {ok:false,reason:'no-reporting-endpoint'};
   }
 
   const body = {

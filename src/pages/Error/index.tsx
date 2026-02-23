@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { sendCrashReport } from '../../utils/report';
-import { useI18n } from '../../components';
+import { useI18n, useToast } from '../../components';
 import menuStyles from '../../components/Menu/Menu.module.css';
 import Button from '../../components/Button';
 import styles from './Error.module.css';
@@ -9,13 +9,21 @@ export default function ErrorPage({error, info, onBack}:{error:Error, info?:Reac
   const { t } = useI18n();
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const toast = useToast();
   const [copied, setCopied] = useState<string | null>(null);
 
   async function handleSend(){
     setSending(true);
     const res = await sendCrashReport({title: error.message, message: String(error), stack: info?.componentStack});
     setSending(false);
-    setResult(res.ok ? 'sent' : `failed: ${res.reason || res.status}`);
+    if(res.ok){
+      setResult('sent');
+      try{ toast.show({ title: 'Report sent', message: 'Thanks — the report was submitted.', type: 'success' }); }catch{}
+    }else{
+      const reason = res.reason || `status ${res.status}`;
+      setResult(`failed: ${reason}`);
+      try{ toast.show({ title: 'Report failed', message: `Failed to send report: ${reason}`, type: 'error', duration: 6000 }); }catch{}
+    }
   }
 
   async function handleCopy(){
