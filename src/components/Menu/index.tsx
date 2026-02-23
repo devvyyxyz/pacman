@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Menu.module.css';
 import { t } from '../../i18n';
 import { playChomp } from '../../utils/audio';
+import Button from '../Button';
 
 type Props = { onStart?: () => void, onOpenSettings?: ()=>void, onOpenCredits?: ()=>void, onError?: ()=>void };
 
@@ -29,19 +30,12 @@ export default function Menu({onStart, onOpenSettings, onOpenCredits, onError}: 
         </div>
 
         <div className={styles.controls} role="navigation" aria-label="Main menu">
-          <button
-            className={`${styles.btn} ${styles.primary}`}
-            onClick={handleStart}
-            autoFocus
-            aria-disabled={starting}
-          >
-            {starting ? t('starting') : t('start_game')}
-          </button>
+          <Button variant="primary" full onClick={handleStart} autoFocus aria-disabled={starting}>{starting ? t('starting') : t('start_game')}</Button>
 
           <div className={styles.row}>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleSettings}>{t('menu_settings')}</button>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleCredits}>{t('menu_credits')}</button>
-            <button className={`${styles.btn} ${styles.secondary}`} onClick={handleError}>{t('menu_simulate_error')}</button>
+            <Button variant="secondary" onClick={handleSettings}>{t('menu_settings')}</Button>
+            <Button variant="secondary" onClick={handleCredits}>{t('menu_credits')}</Button>
+            <Button variant="secondary" onClick={handleError}>{t('menu_simulate_error')}</Button>
           </div>
         </div>
 
