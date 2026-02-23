@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const TILE = 28
 const COLS = 21
@@ -29,15 +30,14 @@ function makeMaze(): number[][] {
   for (let c = 2; c < COLS - 2; c++) if (c !== Math.floor(COLS / 2)) grid[mid][c] = 1
   // small rooms
   grid[3][3] = 1; grid[3][4] = 1; grid[4][3] = 1
-  grid[3][COLS-4] = 1; grid[3][COLS-5] = 1; grid[4][COLS-4] = 1
-  // leave center open
+  grid[3][COLS - 4] = 1; grid[3][COLS - 5] = 1; grid[4][COLS - 4] = 1
   return grid
 }
 
 export default function Game(){
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const navigate = useNavigate()
   const [score, setScore] = useState(0)
-  const [won, setWon] = useState(false)
 
   useEffect(() => {
     const canvas = canvasRef.current!
@@ -63,6 +63,20 @@ export default function Game(){
       { r: 1, c: Math.floor(COLS/2), dir: { r: 0, c: 1 }, color: '#00ffff' }
     ]
 
+    // attempt to load uploaded sprites from localStorage or public /sprites folder
+    const spriteKeys = ['pacman','ghost1','pellet','wall'] as const
+    const sprites: Record<string, HTMLImageElement | null> = { pacman: null, ghost1: null, pellet: null, wall: null }
+
+    for (const k of spriteKeys) {
+      const key = `sprites/${k}`
+      const data = localStorage.getItem(key)
+      const img = new Image()
+      img.onload = () => { sprites[k] = img }
+      img.onerror = () => { sprites[k] = null }
+      if (data) img.src = data
+      else img.src = `/assets/${k}.png`
+    }
+
     let lastMove = performance.now()
     let running = true
 
@@ -74,52 +88,56 @@ export default function Game(){
       for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
           if (maze[r][c] === 1) {
-            ctx.fillStyle = '#0033cc'
-            ctx.fillRect(c * TILE, r * TILE, TILE, TILE)
+            if (sprites.wall && sprites.wall.complete) ctx.drawImage(sprites.wall, c * TILE, r * TILE, TILE, TILE)
+            else {
+              ctx.fillStyle = '#0033cc'
+              ctx.fillRect(c * TILE, r * TILE, TILE, TILE)
+            }
           }
         }
       }
 
       // pellets
-      ctx.fillStyle = '#fff'
       for (const p of pellets) {
         const [r, c] = p.split(',').map(Number)
-        ctx.beginPath()
-        ctx.arc(c * TILE + TILE / 2, r * TILE + TILE / 2, 3, 0, Math.PI * 2)
-        ctx.fill()
+        if (sprites.pellet && sprites.pellet.complete) ctx.drawImage(sprites.pellet, c * TILE + TILE/2 - 4, r * TILE + TILE/2 - 4, 8, 8)
+        else {
+          ctx.fillStyle = '#fff'
+          ctx.beginPath()
+          ctx.arc(c * TILE + TILE / 2, r * TILE + TILE / 2, 3, 0, Math.PI * 2)
+          ctx.fill()
+        }
       }
 
       // pacman
       const px = pac.c * TILE + TILE / 2
       const py = pac.r * TILE + TILE / 2
-      ctx.fillStyle = '#ffcc00'
-      const angle = Math.atan2(pac.dir.r, pac.dir.c)
-      ctx.beginPath()
-      ctx.moveTo(px, py)
-      ctx.arc(px, py, TILE / 2 - 2, angle - Math.PI / 4, angle + Math.PI / 4)
-      ctx.closePath()
-      ctx.fill()
+      if (sprites.pacman && sprites.pacman.complete) ctx.drawImage(sprites.pacman, pac.c * TILE, pac.r * TILE, TILE, TILE)
+      else {
+        ctx.fillStyle = '#ffcc00'
+        const angle = Math.atan2(pac.dir.r, pac.dir.c)
+        ctx.beginPath()
+        ctx.moveTo(px, py)
+        ctx.arc(px, py, TILE / 2 - 2, angle - Math.PI / 4, angle + Math.PI / 4)
+        ctx.closePath()
+        ctx.fill()
+      }
 
       // ghosts
       for (const g of ghosts) {
-        ctx.fillStyle = g.color
-        ctx.beginPath()
-        ctx.arc(g.c * TILE + TILE / 2, g.r * TILE + TILE / 2, TILE / 2 - 4, 0, Math.PI * 2)
-        ctx.fill()
+        if (sprites.ghost1 && sprites.ghost1.complete) ctx.drawImage(sprites.ghost1, g.c * TILE, g.r * TILE, TILE, TILE)
+        else {
+          ctx.fillStyle = g.color
+          ctx.beginPath()
+          ctx.arc(g.c * TILE + TILE / 2, g.r * TILE + TILE / 2, TILE / 2 - 4, 0, Math.PI * 2)
+          ctx.fill()
+        }
       }
 
       // score
       ctx.fillStyle = '#fff'
       ctx.font = '16px sans-serif'
       ctx.fillText(`Pellets remaining: ${pellets.size}`, 8, 18)
-
-      if (won) {
-        ctx.fillStyle = 'rgba(0,0,0,0.6)'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-        ctx.fillStyle = '#fff'
-        ctx.font = '32px sans-serif'
-        ctx.fillText('You Win!', canvas.width / 2 - 60, canvas.height / 2)
-      }
     }
 
     function canMove(r: number, c: number) {
@@ -146,8 +164,8 @@ export default function Game(){
         pellets.delete(key)
         setScore(s => s + 1)
         if (pellets.size === 0) {
-          setWon(true)
           running = false
+          navigate('/win')
         }
       }
 
@@ -157,14 +175,12 @@ export default function Game(){
         // simple collision
         if (g.r === pac.r && g.c === pac.c) {
           running = false
-          setWon(false)
-          // show game over by filling overlay
+          navigate('/gameover')
         }
       }
     }
 
     function moveGhost(g: Ghost) {
-      // if close to pacman, bias towards pacman
       const dist = Math.abs(g.r - pac.r) + Math.abs(g.c - pac.c)
       let options: Dir[] = []
       for (const d of DIRS) {
@@ -175,7 +191,6 @@ export default function Game(){
       if (options.length === 0) return
       let chosen: Dir
       if (dist < 6) {
-        // choose option that reduces Manhattan distance when possible
         options.sort((a, b) => {
           const da = Math.abs((g.r + a.r) - pac.r) + Math.abs((g.c + a.c) - pac.c)
           const db = Math.abs((g.r + b.r) - pac.r) + Math.abs((g.c + b.c) - pac.c)
@@ -183,7 +198,6 @@ export default function Game(){
         })
         chosen = options[0]
       } else {
-        // random but avoid immediate reverse if possible
         const nonReverse = options.filter(o => o.r !== -g.dir.r || o.c !== -g.dir.c)
         const pickFrom = nonReverse.length ? nonReverse : options
         chosen = pickFrom[Math.floor(Math.random() * pickFrom.length)]
@@ -211,10 +225,10 @@ export default function Game(){
     }
 
     window.addEventListener('keydown', keyHandler)
+
     requestAnimationFrame(gameLoop)
 
     return () => {
-      running = false
       window.removeEventListener('keydown', keyHandler)
     }
   }, [])
@@ -222,7 +236,6 @@ export default function Game(){
   return (
     <div className="game-wrap">
       <canvas ref={canvasRef} className="game-canvas" />
-      {won && <div className="overlay">You Win!</div>}
     </div>
   )
 }

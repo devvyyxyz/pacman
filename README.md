@@ -33,6 +33,11 @@ Files of interest
 - [src/App.tsx](src/App.tsx) - simple page wrapper
 - [index.html](index.html) - Vite entry
 
+Custom sprites
+
+- You can upload custom sprites from the main menu. Filenames should include one of: `pacman`, `ghost1`, `pellet`, or `wall` and will be stored in your browser's `localStorage`.
+- Alternatively, place images in `public/sprites/` named `pacman.png`, `ghost1.png`, `pellet.png`, `wall.png` and the game will load them automatically when present.
+
 Files of interest
 
 - [src/Game.jsx](src/Game.jsx) - main game logic
