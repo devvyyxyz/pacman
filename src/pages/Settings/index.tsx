@@ -5,6 +5,7 @@ import styles from './Settings.module.css';
 import SETTINGS, { SettingMeta } from '../../config/settings';
 import config from '../../config';
 import { t, setLocale } from '../../i18n';
+import { Toggle, Select, Range, NumberInput } from '../../components/Controls';
 import Title from '../../components/Title';
 import { DEFAULT_CONFIG } from '../../config/defaults';
 
@@ -43,56 +44,31 @@ export default function Settings({onBack}:{onBack:()=>void}){
   function renderControl(s: SettingMeta){
     const val = local[s.id];
     const disabled = s.implemented === false;
-    const savedIndicator = savedKey === s.id ? <div style={{marginLeft:8,color:'var(--accent)',fontSize:12,fontWeight:700}}>{t('settings_saved')}</div> : null;
+    const saved = savedKey === s.id;
+
     if(s.type === 'toggle'){
-      return (
-        <div className={styles.controls}>
-          <label style={{display:'flex',alignItems:'center',gap:8}}>
-            <input type="checkbox" checked={!!val} onChange={(e)=>update(s.id,e.target.checked)} disabled={disabled} />
-            <span style={{opacity: disabled ? 0.6 : 1}}>{s.label}</span>
-          </label>
-          {savedIndicator}
-        </div>
-      );
+      return <Toggle checked={!!val} onChange={(v)=>update(s.id,v)} disabled={disabled} saved={saved} label={s.label} />;
     }
     if(s.type === 'select'){
+      const displayOptions = s.options || [];
       return (
-        <div style={{display:'flex',alignItems:'center',gap:8}}>
-          <select value={val || s.options?.[0]} onChange={(e)=>update(s.id,e.target.value)} disabled={disabled}>
-            {s.options?.map(o=> {
-              const display = s.id === 'difficulty' ? t(`diff_${o}`) : s.id === 'skin' ? t(`skin_${o}`) : (t(`opt_${o}`) || o);
-              return <option key={o} value={o}>{display}</option>;
-            })}
-          </select>
-          {savedIndicator}
+        <div>
+          <Select value={val || displayOptions[0]} onChange={(v)=>update(s.id,v)} options={displayOptions} disabled={disabled} saved={saved} />
         </div>
       );
     }
     if(s.type === 'range'){
       const v = typeof val === 'number' ? val : 70;
-      return (
-        <div className={styles.controls}>
-          <input type="range" min={0} max={100} step={1} value={v} onChange={(e)=>update(s.id,parseInt(e.target.value))} disabled={disabled} />
-          <div style={{minWidth:48,textAlign:'right'}}>{v}%</div>
-          {savedIndicator}
-        </div>
-      );
+      return <Range value={v} onChange={(n)=>update(s.id,n)} disabled={disabled} saved={saved} />;
     }
     if(s.type === 'number'){
-      return (
-        <div className={styles.controls}>
-          <input type="number" value={val ?? 3} onChange={(e)=>update(s.id,parseInt(e.target.value||'0'))} disabled={disabled} />
-          {savedIndicator}
-        </div>
-      );
+      return <NumberInput value={val ?? 3} onChange={(n)=>update(s.id,n)} disabled={disabled} saved={saved} />;
     }
     if(s.id === 'locale'){
       const cur = local['locale'] || 'en';
       const NATIVE_LANG: Record<string,string> = { en: 'English', es: 'Español', pl: 'Polski' };
       return (
-        <select value={cur} onChange={(e)=>{ update('locale', e.target.value); setLocale(e.target.value); }}>
-          {s.options?.map(opt => <option key={opt} value={opt}>{NATIVE_LANG[opt] || opt}</option>)}
-        </select>
+        <Select value={cur} onChange={(v)=>{ update('locale', v); setLocale(v); }} options={s.options || []} />
       );
     }
     return null;
