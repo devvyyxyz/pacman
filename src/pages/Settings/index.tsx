@@ -7,6 +7,7 @@ import config from '../../config';
 import { t, setLocale } from '../../i18n';
 import { Toggle, Select, Range, NumberInput } from '../../components/Controls';
 import Title from '../../components/Title';
+import Card from '../../components/Card/Card';
 import { DEFAULT_CONFIG } from '../../config/defaults';
 
 type LocalSettings = Record<string, any>;
@@ -89,16 +90,13 @@ export default function Settings({onBack}:{onBack:()=>void}){
 
         <div className={styles.grid}>
           {SETTINGS.map(s => (
-            <div key={s.id} className={`${styles.card} ${s.implemented===false?styles.disabled:''} ${s.id==='difficulty' || s.id==='skin'?styles.full:''}`}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardLabel}>{t(s.labelKey || s.label || s.id)}</div>
-                <div>{s.implemented === false ? <small style={{color:'var(--muted)'}}>{t('coming_soon')}</small> : null}</div>
-              </div>
+            <Card key={s.id} title={t(s.labelKey || s.label || s.id)} className={`${s.implemented===false?styles.disabled:''} ${s.id==='difficulty' || s.id==='skin'?styles.full:''}`}>
               <div className={styles.cardDesc}>{s.description}</div>
               <div>
                 {renderControl(s)}
               </div>
-            </div>
+              {s.implemented === false ? <div style={{marginTop:8}}><small style={{color:'var(--muted)'}}>{t('coming_soon')}</small></div> : null}
+            </Card>
           ))}
         </div>
 
